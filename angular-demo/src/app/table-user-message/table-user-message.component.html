@@ -1,0 +1,38 @@
+<input type="hidden" #usermessageselection value={{selected}}>
+<div class="form-area" *ngIf="usermessageselection.value==='none'; else elseBlock">
+  <h2>User Messages</h2>
+  <p>user message table</p>
+  <div class="card-container">
+    <button class="card card-small" (click)="refresh()" tabindex="1"><span>Refresh</span></button>
+    <button class="card card-small" (click)="select('')" tabindex="2"><span>Add User Message</span></button>
+    <button class="card card-small" (click)="close()" tabindex="0"><span>Close</span></button>
+  </div>
+  <!-- <span>{{selected}}</span> -->
+  <div>
+    <div>
+    <table>
+      <thead>
+        <th>id</th>
+        <th>user account</th>
+        <th>message</th>
+        <th>edit</th>
+        <th>delete</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let record of data">
+          <td>{{record['id']}}</td>
+          <!--<td>{{record['userAccount']['id']+'-'+record['userAccount']['firstName']+' '+record['userAccount']['lastName']}}</td>-->
+          <td>{{record['message']}}</td>
+          <td><button (click)="select(record['id']);" id="{{record['id']}}"><span>edit</span></button></td>
+          <td><button (click)="delete(record['id']);" id="{{record['id']}}"><span>delete</span></button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+<ng-template #elseBlock>
+  <div class="form-area">
+    <app-user-message [id]="usermessageselection.value" (sendNotification)="getNotification($event)"></app-user-message>
+  </div>
+</ng-template>

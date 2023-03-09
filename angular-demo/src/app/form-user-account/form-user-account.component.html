@@ -1,0 +1,24 @@
+<h2>User Account</h2>
+<p>user account form</p>
+<div class="card-container">
+  <button class="card card-small" (click)="refresh()" tabindex="0"><span>Refresh</span></button>
+  <button class="card card-small" (click)="new()" tabindex="1"><span>Add New</span></button>
+  <button class="card card-small" (click)="save()" tabindex="2"><span>Save</span></button>
+  <button class="card card-small" (click)="close()" tabindex="4"><span>Close</span></button>
+</div>
+
+<div class="form">  
+  <div class="form-row, alter-content">
+    <label for="id">id:</label>
+    <input type="text" id="id" name="id" value={{record.id}} readonly><br><br>
+  </div>
+  <div class="form-row, alter-content">
+    <label for="firstName">first name:</label>
+    <input type="text" id="firstName" name="firstName" value={{record.firstName}} (change)="change('firstName', $event)"><br><br>
+  </div>
+  <div class="form-row, alter-content">
+    <label for="lastName">last name:</label>
+    <input type="text" id="lastName" name="lastName" value={{record.lastName}} (change)="change('lastName', $event)"><br><br>
+  </div>
+</div>
+<router-outlet></router-outlet>
