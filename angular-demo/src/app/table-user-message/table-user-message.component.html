@@ -1,1 +1,36 @@
-<p>table-user-message works!</p>
+<input type="hidden" #selection value={{selected}}>
+<div class="form-area" *ngIf="selection.value==='none'; else elseBlock">
+    <h2>User Messages</h2>
+    <p>User message table</p>
+    <div class="btn-group" id='table-user-message-menu'>
+        <button class="btn btn-primary" (click)="select(undefined)" tabindex="0"><span>Add User Message</span></button>
+        <button class="btn btn-primary" (click)="refresh()" tabindex="1"><span>Refresh Data</span></button>
+        <button class="btn btn-secondary" (click)="close()" tabindex="2"><span>Close</span></button>
+    </div>
+    <div id='table-user-message-table'>
+        <table class="table table-striped">
+            <thead class="thead-ligth">
+                <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">user account</th>
+                    <th scope="col">message</th>
+                    <th scope="col">edit</th>
+                    <th scope="col">delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let record of data">
+                    <th scope="row">{{record.id}}</th>
+                    <td>{{record.userAccount?.getFullName()}}</td>
+                    <td>{{record.message}}</td>
+                    <td><button class="btn btn-primary" (click)="select(record.id);" id="{{record.id}}"><span>edit</span></button></td>
+                    <td><button class="btn btn-secondary" (click)="delete(record.id!);" id="{{record.id}}"><span>delete</span></button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<ng-template #elseBlock>
+    <app-form-user-message [id]="selection.value" (sendNotification)="getNotification($event)"></app-form-user-message>
+</ng-template>
+

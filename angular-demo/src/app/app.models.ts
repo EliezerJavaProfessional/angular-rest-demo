@@ -9,7 +9,12 @@ export class UserAccount{
         this.lastName=lastName;
     }
 
-    //toString(){return this.id + ', ' +this.firstName + this.lastName;}
+    getPickName(){
+        return this.id+') '+this.firstName+' '+this.lastName;
+    }
+    getFullName(){
+        return this.firstName+' '+this.lastName;
+    }
 
     validate(){
         if(this.firstName==undefined){this.firstName='';}
@@ -36,14 +41,22 @@ export class UserMessage{
     message?:string;
 
     constructor(id?:number, userAccount?:UserAccount, message?:string){
+        console.log('UserMessage.constructor');
         this.id = id;
+        if(userAccount==null||userAccount==undefined){
+            userAccount=new UserAccount();
+        }
         this.userAccount=userAccount;
-        this.message = message;
+        this.message=message;
+    }
+    
+    validate(){
+        if(this.userAccount==null||this.userAccount==undefined){this.userAccount=new UserAccount();}
+        if(this.message==undefined){this.message='';}
     }
 
-    //toString(){return this.id + ', ' + this.userAccount.toString() + ', ' + this.message;}
-
     toJSON(){
+        this.validate();
         return {
           id: this.id,
           userAccount:this.userAccount?.toJSON(),

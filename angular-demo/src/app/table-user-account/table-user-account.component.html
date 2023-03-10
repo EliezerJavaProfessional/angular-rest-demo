@@ -1,7 +1,7 @@
 <input type="hidden" #selection value={{selected}}>
 <div class="form-area" *ngIf="selection.value==='none'; else elseBlock">
     <h2>User Accounts</h2>
-    <p>user account table</p>
+    <p>User account table</p>
     <div class="btn-group" id='table-user-account-menu'>
         <button class="btn btn-primary" (click)="select(undefined)" tabindex="0"><span>Add User Account</span></button>
         <button class="btn btn-primary" (click)="refresh()" tabindex="1"><span>Refresh Data</span></button>
