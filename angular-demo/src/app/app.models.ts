@@ -3,15 +3,18 @@ export class UserAccount{
     firstName?:string;
     lastName?:string;
     
-    constructor(id?:number,firstName?:string,lastName?:string){
+    constructor(id?:number, firstName?:string, lastName?:string){
         this.id=id;
+        if(firstName==null || firstName==undefined){firstName='';}
         this.firstName=firstName;
+        if(lastName==null || lastName==undefined){lastName='';}
         this.lastName=lastName;
     }
 
     getPickName(){
         return this.id+') '+this.firstName+' '+this.lastName;
     }
+
     getFullName(){
         return this.firstName+' '+this.lastName;
     }
@@ -43,20 +46,12 @@ export class UserMessage{
     constructor(id?:number, userAccount?:UserAccount, message?:string){
         console.log('UserMessage.constructor');
         this.id = id;
-        if(userAccount==null||userAccount==undefined){
-            userAccount=new UserAccount();
-        }
+        if(userAccount==null || userAccount==undefined){userAccount=new UserAccount();}
         this.userAccount=userAccount;
         this.message=message;
     }
     
-    validate(){
-        if(this.userAccount==null||this.userAccount==undefined){this.userAccount=new UserAccount();}
-        if(this.message==undefined){this.message='';}
-    }
-
     toJSON(){
-        this.validate();
         return {
           id: this.id,
           userAccount:this.userAccount?.toJSON(),

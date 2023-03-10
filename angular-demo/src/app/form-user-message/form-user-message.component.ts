@@ -9,40 +9,31 @@ import { UserAccount, UserMessage } from '../app.models';
   styleUrls: ['../app.component.css']
 })
 export class FormUserMessageComponent {
-  constructor(private http: HttpClient) {this.refresh();}
+  constructor(private http: HttpClient) {
+    console.log('form-user-message.constructor');
+  }
 
-  @Input() id?:string=undefined;
+  @Input() id?:string;
   record=new UserMessage();
   @Output() sendNotification = new EventEmitter<string>();
   
   ngOnChanges(changes: SimpleChanges) {
-    console.log('onChanges')
-    this.refresh();    
+    console.log('form-user-message.onChanges(changes='+JSON.stringify(changes)+')');
+    this.refresh();
   }
   change(input:string, event: any){
-    console.log('change');
-    console.log(input + ":" + event.target.value);
-    if (input==='userAccount.id'){
-      console.log('Before');
-      console.log(this.record);
-      if(this.record.userAccount==null || this.record.userAccount==undefined){
-        this.record.userAccount = new UserAccount();
-      }
-      this.record.userAccount!.id=event.target.value;
-      console.log('After');
-      console.log(this.record);
-    }
+    console.log('form-user-message.change(input='+input+', event.target.value='+event.target.value+')');
+    if (input==='userAccount.id'){this.record.userAccount!.id=event.target.value;}
     else if (input==='message'){this.record.message=event.target.value;}
   }
-  
   new(){
+    console.log('form-user-message.new');
     this.id=undefined;
     this.record = new UserMessage();
   }
-
   refresh() {
-    console.log('refresh');
-    if(this.id!=undefined){
+    console.log('form-user-message.refresh(id:'+this.id+')');
+    if(this.id!=null && this.id!=undefined && this.id!=''){
       this.http.get<any>(AppConfig.USER_MESSAGE+this.id).subscribe(data=>{
         console.log(data);
         this.record=UserMessage.parse(data);
@@ -50,10 +41,10 @@ export class FormUserMessageComponent {
     }
   }
   save() {
-    console.log('save');
+    console.log('form-user-message.save');
     console.log(this.record);
     if(this.id==undefined || this.id==''){
-      console.log('insert');
+      console.log('form-user-message.save.insert');
       console.log(this.record.toJSON());
       this.http.post<any>(AppConfig.USER_MESSAGE, this.record.toJSON()).subscribe(data => {
         console.log(data);
@@ -61,7 +52,7 @@ export class FormUserMessageComponent {
         this.record=UserMessage.parse(data);
       })
     }else{
-      console.log('update');
+      console.log('form-user-message.save.update');
       console.log(this.record.toJSON());
       console.log(JSON.stringify(this.record.toJSON()));
       this.http.put<any>(AppConfig.USER_MESSAGE+this.id, this.record.toJSON()).subscribe(data => {
@@ -72,13 +63,13 @@ export class FormUserMessageComponent {
     }
   }
   delete() {
-    console.log('delete');
-    if(this.id!=undefined && this.id!=''){
+    console.log('form-user-message.delete');
+    if(this.id!=null && this.id!=undefined && this.id!=''){
       this.http.delete<any>(AppConfig.USER_MESSAGE + this.id).subscribe(() => {this.sendNotification.emit('');});
     }
   }
   close() {
-    console.log('close');
+    console.log('form-user-message.close');
     this.sendNotification.emit('');
   }
 }

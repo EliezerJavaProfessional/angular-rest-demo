@@ -18,23 +18,19 @@ export class FormUserAccountComponent {
   @Output() sendNotification = new EventEmitter<string>();
   
   ngOnChanges(changes: SimpleChanges) {
-    console.log('form-user-account.onChanges('+JSON.stringify(changes)+')');
-    this.refresh();    
+    console.log('form-user-account.onChanges(changes='+JSON.stringify(changes)+')');
+    this.refresh();
   }
-
   change(input:string, event: any){
-    console.log('form-user-account.input');
-    console.log(input + ":" + event.target.value);
+    console.log('form-user-account.change(input='+input+', event.target.value='+event.target.value+')');
     if (input==='firstName'){this.record.firstName=event.target.value;}
     else if (input==='lastName'){this.record.lastName=event.target.value;}
   }
-  
   new(){
     console.log('form-user-account.new');
     this.id=undefined;
     this.record = new UserAccount();
   }
-
   refresh() {
     console.log('form-user-account.refresh(id:'+this.id+')');
     if(this.id!=null && this.id!=undefined && this.id!=''){
@@ -68,7 +64,7 @@ export class FormUserAccountComponent {
   }
   delete() {
     console.log('form-user-account.delete');
-    if(this.id!=undefined && this.id!=''){
+    if(this.id!=null && this.id!=undefined && this.id!=''){
       this.http.delete<any>(AppConfig.USER_ACCOUNT + this.id).subscribe(() => {this.sendNotification.emit('');});
     }
   }
