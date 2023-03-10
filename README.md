@@ -5,4 +5,3 @@ Minimalist Angular Front End Demo with CRUD operations and using basic Bootstrap
 ###     + Multiple Input Types
 ####        * Select
 ####        * Date/Time Controls
-
