@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserAccountsComponent } from './table-user-account.component';
+import { TableUserAccountComponent } from './table-user-account.component';
 
-describe('UserAccountsComponent', () => {
-  let component: UserAccountsComponent;
-  let fixture: ComponentFixture<UserAccountsComponent>;
+describe('TableUserAccountComponent', () => {
+  let component: TableUserAccountComponent;
+  let fixture: ComponentFixture<TableUserAccountComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UserAccountsComponent ]
+      declarations: [ TableUserAccountComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(UserAccountsComponent);
+    fixture = TestBed.createComponent(TableUserAccountComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

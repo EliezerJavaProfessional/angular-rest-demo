@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'angular-demo';
+  title = 'Angular Demo App';
+  selected='app-root';
+  select(value: string){this.selected=value;}
+  getNotification(value: string) {this.selected='app-root';}
 }

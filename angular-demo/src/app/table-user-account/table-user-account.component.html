@@ -1,38 +1,36 @@
 <input type="hidden" #selection value={{selected}}>
 <div class="form-area" *ngIf="selection.value==='none'; else elseBlock">
-  <h2>User Accounts</h2>
-  <p>user account table</p>
-  <div class="card-container">
-    <button class="card card-small" (click)="refresh()" tabindex="1"><span>Refresh</span></button>
-    <button class="card card-small" (click)="select(undefined)" tabindex="2"><span>Add User Account</span></button>
-    <button class="card card-small" (click)="close()" tabindex="0"><span>Close</span></button>
-  </div>
-  <!-- <span>{{selected}}</span> -->
-  <div>
-    <div>
-    <table>
-      <thead>
-        <th>id</th>
-        <th>first name</th>
-        <th>last name</th>
-        <th>edit</th>
-        <th>delete</th>
-      </thead>
-      <tbody>
-        <tr *ngFor="let record of data">
-          <td>{{record.id}}</td>
-          <td>{{record.firstName}}</td>
-          <td>{{record.lastName}}</td>
-          <td><button (click)="select(record.id);" id="{{record.id}}"><span>edit</span></button></td>
-          <td><button (click)="delete(record.id!);" id="{{record.id}}"><span>delete</span></button></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
+    <h2>User Accounts</h2>
+    <p>user account table</p>
+    <div class="btn-group" id='table-user-account-menu'>
+        <button class="btn btn-primary" (click)="select(undefined)" tabindex="0"><span>Add User Account</span></button>
+        <button class="btn btn-primary" (click)="refresh()" tabindex="1"><span>Refresh Data</span></button>
+        <button class="btn btn-secondary" (click)="close()" tabindex="2"><span>Close</span></button>
+    </div>
+    <div id='table-user-account-table'>
+        <table class="table table-striped">
+            <thead class="thead-ligth">
+                <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">first name</th>
+                    <th scope="col">last name</th>
+                    <th scope="col">edit</th>
+                    <th scope="col">delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let record of data">
+                    <th scope="row">{{record.id}}</th>
+                    <td>{{record.firstName}}</td>
+                    <td>{{record.lastName}}</td>
+                    <td><button class="btn btn-primary" (click)="select(record.id);" id="{{record.id}}"><span>edit</span></button></td>
+                    <td><button class="btn btn-secondary" (click)="delete(record.id!);" id="{{record.id}}"><span>delete</span></button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 <ng-template #elseBlock>
-  <div class="form-area">
     <app-form-user-account [id]="selection.value" (sendNotification)="getNotification($event)"></app-form-user-account>
-  </div>
 </ng-template>
+

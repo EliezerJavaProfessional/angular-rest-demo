@@ -8,7 +8,6 @@ import {UserAccount} from '../app.models';
   templateUrl: './form-user-account.component.html',
   styleUrls: ['../app.component.css']
 })
-
 export class FormUserAccountComponent {
   constructor(private http: HttpClient) {this.refresh();}
 
@@ -39,10 +38,9 @@ export class FormUserAccountComponent {
       });
     }
   }
-
   save() {
     console.log(this.record);
-    if(this.id==undefined){
+    if(this.id==undefined || this.id==''){
       this.http.post<any>(AppConfig.USER_ACCOUNT, this.record.toJSON()).subscribe(data => {
         console.log(data);
         this.id = data['id'];
@@ -55,6 +53,12 @@ export class FormUserAccountComponent {
         this.id = data['id'];
         this.record=UserAccount.parse(data);
       })
+    }
+  }
+  delete() {
+    console.log('delete');
+    if(this.id!=undefined && this.id!=''){
+      this.http.delete<any>(AppConfig.USER_ACCOUNT + this.id).subscribe(() => {this.sendNotification.emit('');});
     }
   }
   close() {this.sendNotification.emit('');}

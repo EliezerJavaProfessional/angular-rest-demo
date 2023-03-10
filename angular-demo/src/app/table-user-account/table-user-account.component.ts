@@ -27,7 +27,13 @@ export class TableUserAccountComponent {
     });
   }
   delete(value: number) {this.http.delete<any>(AppConfig.USER_ACCOUNT + value ).subscribe(()=>{this.refresh();});}
-  select(value?: number) {this.selected=value?.toString();}
+  select(value?: number) {
+    if(value==null || value==undefined){
+      this.selected=undefined;
+    }else{
+      this.selected=value!.toString();
+    }
+  }
   close() {this.sendNotification.emit('');}
   
   getNotification(value: string) {
