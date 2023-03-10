@@ -10,17 +10,27 @@
     </div>
 
     <div class="form">
+      <br>
       <div class="form-group">
         <label for="id">id:</label>
-        <input type="text" class="form-control" id="id" name="id" value={{record.id}} readonly><br><br>
+        <input type="text" class="form-control" id="id" name="id" value={{record.id}} readonly><br>
       </div>
+      <!--
       <div class="form-group">
         <label for="userAccount.id">user account:</label>
         <input type="text" class="form-control" id="userAccount.id" name="userAccount.id" value={{record.userAccount?.id}} (change)="change('userAccount.id', $event)"><br><br>
       </div>
+      -->
+      <div class="form-group">
+        <label for="userAccount">user account:</label>
+        <select class="form-select" id="userAccount" name="userAccount" (change)="change('userAccount.id', $event)" >
+          <option value="">- - -</option>
+          <option value="{{element.id}}" *ngFor="let element of data" [selected]="element.id===record.userAccount?.id">{{element.getPickName()}}</option>
+        </select><br>
+      </div>
       <div class="form-group">
         <label for="lastName">message:</label>
-        <input type="text" class="form-control" id="lastName" name="lastName" value={{record.message}} (change)="change('message', $event)"><br><br>
+        <input type="text" class="form-control" id="lastName" name="lastName" value={{record.message}} (change)="change('message', $event)"><br>
       </div>
     </div>
 </div>

@@ -12,7 +12,7 @@ export class UserAccount{
     }
 
     getPickName(){
-        return this.id+') '+this.firstName+' '+this.lastName;
+        return this.id+' - '+this.firstName+' '+this.lastName;
     }
 
     getFullName(){

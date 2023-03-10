@@ -11,10 +11,12 @@ import { UserAccount, UserMessage } from '../app.models';
 export class FormUserMessageComponent {
   constructor(private http: HttpClient) {
     console.log('form-user-message.constructor');
+    this.initialize();
   }
 
   @Input() id?:string;
-  record=new UserMessage();
+  record:UserMessage=new UserMessage();
+  data:UserAccount[]=[];
   @Output() sendNotification = new EventEmitter<string>();
   
   ngOnChanges(changes: SimpleChanges) {
@@ -31,10 +33,20 @@ export class FormUserMessageComponent {
     this.id=undefined;
     this.record = new UserMessage();
   }
+  initialize(){
+    console.log('form-user-message.initialize()');
+    this.http.get<UserAccount[]>(AppConfig.USER_ACCOUNT).subscribe(data=>{
+      console.log(data);
+      this.data=[];
+      data.forEach(element => {
+        this.data.push(UserAccount.parse(element));
+      });
+    });
+  }
   refresh() {
     console.log('form-user-message.refresh(id:'+this.id+')');
     if(this.id!=null && this.id!=undefined && this.id!=''){
-      this.http.get<any>(AppConfig.USER_MESSAGE+this.id).subscribe(data=>{
+      this.http.get<UserMessage>(AppConfig.USER_MESSAGE+this.id).subscribe(data=>{
         console.log(data);
         this.record=UserMessage.parse(data);
       });
@@ -46,18 +58,18 @@ export class FormUserMessageComponent {
     if(this.id==undefined || this.id==''){
       console.log('form-user-message.save.insert');
       console.log(this.record.toJSON());
-      this.http.post<any>(AppConfig.USER_MESSAGE, this.record.toJSON()).subscribe(data => {
+      this.http.post<UserMessage>(AppConfig.USER_MESSAGE, this.record.toJSON()).subscribe(data => {
         console.log(data);
-        this.id = data['id'];
+        this.id = data['id']?.toString();
         this.record=UserMessage.parse(data);
       })
     }else{
       console.log('form-user-message.save.update');
       console.log(this.record.toJSON());
       console.log(JSON.stringify(this.record.toJSON()));
-      this.http.put<any>(AppConfig.USER_MESSAGE+this.id, this.record.toJSON()).subscribe(data => {
+      this.http.put<UserMessage>(AppConfig.USER_MESSAGE+this.id, this.record.toJSON()).subscribe(data => {
         console.log(data);
-        this.id = data['id'];
+        this.id = data['id']?.toString();
         this.record=UserMessage.parse(data);
       })
     }
@@ -65,7 +77,7 @@ export class FormUserMessageComponent {
   delete() {
     console.log('form-user-message.delete');
     if(this.id!=null && this.id!=undefined && this.id!=''){
-      this.http.delete<any>(AppConfig.USER_MESSAGE + this.id).subscribe(() => {this.sendNotification.emit('');});
+      this.http.delete<undefined>(AppConfig.USER_MESSAGE + this.id).subscribe(() => {this.sendNotification.emit('');});
     }
   }
   close() {
