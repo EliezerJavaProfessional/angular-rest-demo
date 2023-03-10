@@ -44,7 +44,6 @@ export class UserMessage{
     message?:string;
 
     constructor(id?:number, userAccount?:UserAccount, message?:string){
-        console.log('UserMessage.constructor');
         this.id = id;
         if(userAccount==null || userAccount==undefined){userAccount=new UserAccount();}
         this.userAccount=userAccount;
