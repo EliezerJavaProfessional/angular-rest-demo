@@ -15,6 +15,7 @@
                     <th scope="col">id</th>
                     <th scope="col">first name</th>
                     <th scope="col">last name</th>
+                    <th scope="col">active</th>
                     <th scope="col">edit</th>
                     <th scope="col">delete</th>
                 </tr>
@@ -24,6 +25,7 @@
                     <th scope="row">{{record.id}}</th>
                     <td>{{record.firstName}}</td>
                     <td>{{record.lastName}}</td>
+                    <td>{{record.active}}</td>
                     <td><button class="btn btn-primary" (click)="select(record.id);" id="{{record.id}}"><span>edit</span></button></td>
                     <td><button class="btn btn-secondary" (click)="delete(record.id!);" id="{{record.id}}"><span>delete</span></button></td>
                 </tr>

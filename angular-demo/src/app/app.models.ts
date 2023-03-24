@@ -2,13 +2,16 @@ export class UserAccount{
     id?:number;
     firstName?:string;
     lastName?:string;
+    active?:boolean;
     
-    constructor(id?:number, firstName?:string, lastName?:string){
+    constructor(id?:number, firstName?:string, lastName?:string, active?:boolean){
         this.id=id;
         if(firstName==null || firstName==undefined){firstName='';}
         this.firstName=firstName;
         if(lastName==null || lastName==undefined){lastName='';}
         this.lastName=lastName;
+        if(active==null || active==undefined){active=false;}
+        this.active=active;
     }
 
     getPickName(){
@@ -22,6 +25,7 @@ export class UserAccount{
     validate(){
         if(this.firstName==undefined){this.firstName='';}
         if(this.lastName==undefined){this.lastName='';}
+        if(this.active==undefined){this.active=false;}
     }
     
     toJSON(){
@@ -29,12 +33,13 @@ export class UserAccount{
         return {
           id: this.id,
           firstName:this.firstName,
-          lastName:this.lastName
+          lastName:this.lastName,
+          active:this.active
         }
     }
 
     public static parse(jsonData:any){
-        return new UserAccount(jsonData['id'],jsonData['firstName'],jsonData['lastName']);
+        return new UserAccount(jsonData['id'],jsonData['firstName'],jsonData['lastName'], jsonData['active']);
     }
 }
 
