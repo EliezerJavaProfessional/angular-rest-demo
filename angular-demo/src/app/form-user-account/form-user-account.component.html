@@ -23,5 +23,15 @@
         <label for="lastName">last name:</label>
         <input type="text" class="form-control" id="lastName" name="lastName" value={{record.lastName}} (change)="change('lastName', $event)"><br>
       </div>
+      <div class="form-check">
+        <div *ngIf="record.active==true; then thenBlock else elseBlock"></div>
+        <ng-template #thenBlock>
+          <input type="checkbox" class="form-check-input" id="active" name="active" checked (change)="change('active', $event)">
+        </ng-template>
+        <ng-template #elseBlock>
+          <input type="checkbox" class="form-check-input" id="active" name="active" (change)="change('active', $event)">
+        </ng-template>
+        <label class="form-check-label" for="active">active</label>
+      </div>
     </div>
 </div>

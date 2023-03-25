@@ -25,7 +25,15 @@
                     <th scope="row">{{record.id}}</th>
                     <td>{{record.firstName}}</td>
                     <td>{{record.lastName}}</td>
-                    <td>{{record.active}}</td>
+                    <td>
+                        <div *ngIf="record.active==true; then thenBlock else elseBlock"></div>
+                        <ng-template #thenBlock>
+                            <input type="checkbox" class="form-check-input" id="active" name="active" checked readonly>
+                        </ng-template>
+                        <ng-template #elseBlock>
+                            <input type="checkbox" class="form-check-input" id="active" name="active" readonly>
+                        </ng-template>
+                    </td>
                     <td><button class="btn btn-primary" (click)="select(record.id);" id="{{record.id}}"><span>edit</span></button></td>
                     <td><button class="btn btn-secondary" (click)="delete(record.id!);" id="{{record.id}}"><span>delete</span></button></td>
                 </tr>

@@ -25,6 +25,7 @@ export class FormUserAccountComponent {
     console.log('form-user-account.change(input='+input+', event.target.value='+event.target.value+')');
     if (input==='firstName'){this.record.firstName=event.target.value;}
     else if (input==='lastName'){this.record.lastName=event.target.value;}
+    else if (input==='active'){this.record.active=!this.record.active;}
   }
   new(){
     console.log('form-user-account.new');
