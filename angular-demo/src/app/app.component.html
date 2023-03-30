@@ -13,19 +13,20 @@
         </ul>
       </div>
     </nav>
-  <div class="tab-content" id="tab_content">
-    <div class="tab-pane fade show active" id="tab_home" role="tabpanel">
-      <div class="form-area">
-        <h2>Home</h2>
-        <p>Home Page for User Manager App</p>
+    <div class="tab-content" id="tab_content">
+      <div class="tab-pane fade show active" id="tab_home" role="tabpanel">
+        <div class="form-area">
+          <h2>Home</h2>
+          <p>Home Page for User Manager App</p>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="tab_user-account" role="tabpanel">
+        <app-table-user-account></app-table-user-account>
+      </div>
+      <div class="tab-pane fade" id="tab_user-message" role="tabpanel">
+        <app-table-user-message></app-table-user-message>
       </div>
     </div>
-    <div class="tab-pane fade" id="tab_user-account" role="tabpanel">
-      <app-table-user-account></app-table-user-account>
-    </div>
-    <div class="tab-pane fade" id="tab_user-message" role="tabpanel">
-      <app-table-user-message></app-table-user-message>
-    </div>
+    <router-outlet></router-outlet>
   </div>
-<router-outlet></router-outlet>
 </div>
