@@ -7,6 +7,13 @@
         <button class="btn btn-primary" (click)="refresh()" tabindex="1"><span>Refresh Data</span></button>
         <button class="btn btn-secondary" (click)="close()" tabindex="2"><span>Close</span></button>
     </div>
+    <!-- TOAST! -->
+    <div style="position: absolute; bottom: 0; right: 0;">
+        <div class="container">
+          <ngb-toast *ngIf="showMessage" [autohide]="true" id="message" name="message" (hidden)="showMessage=false" (click)="showMessage=false">{{message}}</ngb-toast>
+          <br/>
+        </div>
+    </div>
     <div id='table-user-account-table'>
         <br>
         <table class="table table-striped">

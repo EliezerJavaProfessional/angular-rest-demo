@@ -14,6 +14,8 @@ export class FormUserAccountComponent {
   }
 
   @Input() id?:string;
+  message:string="";
+  showMessage:boolean=false;
   record = new UserAccount();
   @Output() sendNotification = new EventEmitter<string>();
   
@@ -28,11 +30,15 @@ export class FormUserAccountComponent {
     else if (input==='active'){this.record.active=!this.record.active;}
   }
   new(){
+    this.message="";
+    this.showMessage=false;
     console.log('form-user-account.new');
     this.id=undefined;
     this.record = new UserAccount();
   }
   refresh() {
+    this.message="";
+    this.showMessage=false;
     console.log('form-user-account.refresh(id:'+this.id+')');
     if(this.id!=null && this.id!=undefined && this.id!=''){
       this.http.get<any>(AppConfig.USER_ACCOUNT + this.id).subscribe(data=>{
@@ -42,6 +48,8 @@ export class FormUserAccountComponent {
     }
   }
   save() {
+    this.message="";
+    this.showMessage=false;
     console.log('form-user-account.save');
     console.log(this.record);
     if(this.id==undefined || this.id==''){
@@ -62,8 +70,12 @@ export class FormUserAccountComponent {
         this.record=UserAccount.parse(data);
       })
     }
+    this.message="Saved!";
+    this.showMessage=true;
   }
   delete() {
+    this.message="";
+    this.showMessage=false;
     console.log('form-user-account.delete');
     if(this.id!=null && this.id!=undefined && this.id!=''){
       this.http.delete<any>(AppConfig.USER_ACCOUNT + this.id).subscribe(() => {this.sendNotification.emit('');});

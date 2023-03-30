@@ -11,6 +11,8 @@ import { UserAccount } from '../app.models';
 export class TableUserAccountComponent {
   constructor(private http: HttpClient) { }
   
+  message:string="";
+  showMessage:boolean=false;
   active:boolean=true;
   selected?:string='none';
   data:UserAccount[] = [];
@@ -23,6 +25,8 @@ export class TableUserAccountComponent {
   }
   
   refresh() {
+    this.message="";
+    this.showMessage=false;
     console.log('table-user-account.refresh');
     if(this.active){
       this.http.get<UserAccount[]>(AppConfig.USER_ACCOUNT).subscribe(data=>{
@@ -31,13 +35,22 @@ export class TableUserAccountComponent {
           this.data.push(UserAccount.parse(element));
         });
       });
+      this.message="data refresh!";
+      this.showMessage=true;
     }
   }
   delete(value: number) {
+    this.message="";
+    this.showMessage=false;
     console.log('table-user-account.delete');
     this.http.delete<any>(AppConfig.USER_ACCOUNT + value ).subscribe(()=>{this.refresh();});
+    this.message="Deleted!";
+    this.showMessage=true;
   }
+  
   select(value?: number) {
+    this.message="";
+    this.showMessage=false;
     console.log('table-user-account.select('+value+')');
     this.active=false;
     if(value==null || value==undefined){
@@ -46,7 +59,10 @@ export class TableUserAccountComponent {
       this.selected=value!.toString();
     }
   }
+  
   close() {
+    this.message="";
+    this.showMessage=false;
     console.log('table-user-account.close');
     this.active=false;
     this.sendNotification.emit('');
